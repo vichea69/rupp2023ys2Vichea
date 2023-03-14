@@ -1,5 +1,7 @@
 <?php
 
+    require_once '../models/Post.php';
+
     // Start PHP session
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -10,7 +12,11 @@
         exit();
     }
 
-    $posts = [];
+    $posts = [
+        new Post(1, 'Post 1', 'Content 1', 'https://fastly.picsum.photos/id/123/300/200.jpg?hmac=kXYDwT491zyy8kdoIlZfMs-IUzLA5VTv6DKX2dq5MO0'),
+        new Post(2, 'Post 2', 'Content 2', 'https://fastly.picsum.photos/id/123/300/200.jpg?hmac=kXYDwT491zyy8kdoIlZfMs-IUzLA5VTv6DKX2dq5MO0'),
+        new Post(3, 'Post 3', 'Content 3', 'https://fastly.picsum.photos/id/123/300/200.jpg?hmac=kXYDwT491zyy8kdoIlZfMs-IUzLA5VTv6DKX2dq5MO0')
+    ];
     // Query all posts from table
 ?>
 
@@ -36,7 +42,7 @@
         <main class="mb-4 mt-5">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="col-md-10">
                         <h2>Post list</h2>
                         <div class="my-5">
                             <table class="table">
@@ -52,7 +58,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (count($posts)) { ?>
+                                    <?php 
+                                        if (count($posts)) { 
+                                            foreach($posts as $post) {
+                                                echo '
+                                                    <tr>
+                                                        <td>' . $post->id . '</td>
+                                                        <td>' . $post->title . '</td>
+                                                        <td>' . $post->content . '</td>
+                                                        <td><img src="' . $post->imageUrl . '" /></td>
+                                                    </tr>
+                                                ';
+                                            }
+                                    
+                                    ?>
 
                                     <?php } else { ?>
                                         <tr>
