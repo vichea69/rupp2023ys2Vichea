@@ -49,7 +49,7 @@
                                         <th scope="col">Content</th>
                                         <th scope="col">Image</th>
                                         <th scope="col">
-                                            <a class="btn btn-primary" href="">New Post</a>
+                                            <a class="btn btn-primary" href="../admin/addpost.php">New Post</a>
                                         </th>
                                     </tr>
                                 </thead>
