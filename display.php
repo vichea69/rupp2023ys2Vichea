@@ -10,31 +10,14 @@ if(isset($_POST['submit'])){
     $title =$_POST['title'];
     $content=$_POST['content'];
     $image = $_FILES['image'];
-
-//    echo $title;
-//    echo"<br>";
-//    echo $content;
-//    echo"<br>";
-//    print_r($image);
     $imagefilename=$image['name'];
-//    print_r($imagefilename);
-//    echo "<br>";
     $imagefileerror=$image['error'];
-//    print_r($imagefileerror);
-//    echo "<br>";
     $imagefiletemp=$image['tmp_name'];
-//    print_r($imagefiletemp);
-//    echo "<br>";
     $filename_separate = explode('.', $imagefilename);
-//    print_r($filename_separate);
-//    echo "<br>";
-//    $file_extension = strtolower($filename_separate[1]);
-//    print_r($file_extension);
     $file_extension = strtolower(end($filename_separate));
-//    print_r($file_extension);
     $extension = array('jpeg','jpg','png');
     if (in_array($file_extension, $extension)){
-        $upload_image = "Uploads/".$imagefilename;
+        $upload_image = "images/".$imagefilename;
         move_uploaded_file($imagefiletemp,$upload_image);
         $sql ="INSERT INTO `test`(`title`, `content`, `image`) VALUES ('$title','$content','$upload_image')";
         $result = $con->query($sql);
@@ -108,8 +91,13 @@ if(isset($_POST['submit'])){
                                 <td>'.$title.'</td>
                                 <td>'.$content.'</td>
                                 <td><img src="'.$image.'" alt=""></td>
+                                <td> 
+                                <button type="button" class="btn btn-primary">Edit</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-info">View</button>
+                                </td>
                             </tr>';
-
+                            
                         }
                         ?>
                         </tbody>
