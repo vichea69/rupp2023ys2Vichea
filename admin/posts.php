@@ -35,15 +35,15 @@ if (!$con){
             width: 100px;
         }
     </style>
-    <title>Display data</title>
+    <title>Clean Blog - Posts</title>
 </head>
 
 <body>
-<main class="mb-4 mt-5">
+<main class="mb-4 mt-3">
     <div class="container px-4 px-lg-5 ">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10">
-                <h2 class="text-center">Post list</h2>
+                <h2 class="text-center ">Post list</h2>
                 <div class="my-5">
                     <table class="table">
                         <thead>
@@ -75,7 +75,7 @@ if (!$con){
                                 <td> 
                                 <button type="button" class="btn btn-primary"><a href="../admin/updateposts.php?updateid='.$id.'" class="text-light">Edit</a></button>
                                 <button type="button" class="btn btn-danger"><a href="../admin/deleteposts.php?deleteid='.$id.'" class="text-light">Delete</a></button>
-                                <button type="button" class="btn btn-info">View</button>
+                                
                                 </td>
                             </tr>';
                             
@@ -84,10 +84,20 @@ if (!$con){
                         </tbody>
                     </table>
                 </div>
+                <nav class="d-flex justify-content-center" >
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 </main>
+
 
 
 

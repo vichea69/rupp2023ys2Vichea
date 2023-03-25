@@ -1,4 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['auth'])) {
+    header("Location: ../index.php");
+    exit();
+}
 $con=mysqli_connect('localhost', 'vicheasrin','290802','vicheadb');
 if (!$con){
     echo "Connect successful";
@@ -28,12 +35,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $file_extension = strtolower(end($filename_separate));
     $extension = array('jpeg','jpg','png');
     
-    if (in_array($file_extension, $extension)!= ""){
+    if (in_array($file_extension, $extension)){
         
         $upload_image = "../images/".$imagefilename;
         move_uploaded_file($imagefiletemp,$upload_image);
-        $sql ="UPDATE `test` SET `id`='$id',`title`='$title',`content`='$content',`image`='$image' WHERE id=$id";
+        //$sql ="UPDATE `test` SET `id`='$id',`title`='$title',`content`='$content',`image`='$upload_image' WHERE id=$id";
+        $sql = "SELECT `image` FROM `test` WHERE `id` = '$id'";
         $result = $con->query($sql);
+        $row = $result->fetch_assoc();
+        $old_image = $row['image'];
+        unlink($old_image); // Delete the old image from the server
+        $sql = "UPDATE `test` SET `id`='$id',`title` = '$title', `content` = '$content', `image` = '$upload_image' WHERE `id` = '$id'";
+        $result = $con->query($sql);
+
+        //$result = $con->query($sql);
         if ($result){
             echo '
             
@@ -60,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="../css/styles.css" rel="stylesheet" />
-    <title>Document</title>
+    <title>Clean Blog - update posts</title>
 </head>
 <body>
 <h1 class="text-center pt-5">Update Posts</h1>
