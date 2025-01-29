@@ -6,7 +6,7 @@ if (!isset($_SESSION['auth'])) {
     header("Location: ../index.php");
     exit();
 }
-$con=mysqli_connect('localhost', 'vicheasrin','290802','vicheadb');
+$con=mysqli_connect('mysql.vichea.engineer', 'root','rootpassword','vicheadb');
 if (!$con){
     echo "Connect successful";
     die('mysqli_errno($con)');
